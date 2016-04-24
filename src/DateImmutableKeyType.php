@@ -4,7 +4,7 @@ namespace VasekPurchart\Doctrine\Type\DateTimeImmutable;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-class DateImmutableType extends \Doctrine\DBAL\Types\DateType
+class DateImmutableKeyType extends \Doctrine\DBAL\Types\DateType
 {
 
 	const NAME = 'date_immutable_key';
