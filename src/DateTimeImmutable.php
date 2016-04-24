@@ -18,8 +18,8 @@ class DateTimeImmutable extends \DateTimeImmutable
 	/**
 	 * @inheritdoc
 	 */
-	public static function createFromFormat($format, $time)
+	public static function createFromFormat($format, $time, $timezone = NULL)
 	{
-		return new self(parent::createFromFormat($format, $time)->format('Y-m-d'));
+		return new self(parent::createFromFormat($format, $time, $timezone)->format('Y-m-d'));
 	}
 }
