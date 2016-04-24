@@ -20,6 +20,10 @@ class DateTimeImmutable extends \DateTimeImmutable
 	 */
 	public static function createFromFormat($format, $time, $timezone = NULL)
 	{
-		return new self(parent::createFromFormat($format, $time, $timezone)->format('Y-m-d'));
+		if ($timezone) {
+			throw new \Exception('Timezone not supported');
+		}
+
+		return new self(parent::createFromFormat($format, $time)->format('Y-m-d'));
 	}
 }
