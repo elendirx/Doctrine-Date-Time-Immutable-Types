@@ -3,11 +3,12 @@
 namespace VasekPurchart\Doctrine\Type\DateTimeImmutable;
 
 use DateTimeImmutable;
+use stdClass;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type as DoctrineType;
 
-class DateTimeImmutableTypesTest extends \PHPUnit_Framework_TestCase
+class DateTimeImmutableTypesTest extends \PHPUnit\Framework\TestCase
 {
 
 	/**
@@ -79,8 +80,44 @@ class DateTimeImmutableTypesTest extends \PHPUnit_Framework_TestCase
 	public function testInvalidString(DoctrineType $type)
 	{
 		$platform = $this->getMockForAbstractClass(AbstractPlatform::class);
-		$this->setExpectedException(\Doctrine\DBAL\Types\ConversionException::class);
+		$this->expectException(\Doctrine\DBAL\Types\ConversionException::class);
 		$this->assertNull($type->convertToPHPValue('foobar', $platform));
+	}
+
+	/**
+	 * @dataProvider typesProvider
+	 *
+	 * @param \Doctrine\DBAL\Types\Type $type
+	 */
+	public function testConvertToDatabaseValueWithNull(DoctrineType $type)
+	{
+		$platform = $this->getMockForAbstractClass(AbstractPlatform::class);
+		$this->assertNull($type->convertToDatabaseValue(null, $platform));
+	}
+
+	/**
+	 * @dataProvider typesProvider
+	 *
+	 * @param \Doctrine\DBAL\Types\Type $type
+	 */
+	public function testConvertToDatabaseValueWithString(DoctrineType $type)
+	{
+		$platform = $this->getMockForAbstractClass(AbstractPlatform::class);
+		$this->expectException(\Doctrine\DBAL\Types\ConversionException::class);
+		$type->convertToDatabaseValue('foobar', $platform);
+	}
+
+	/**
+	 * @dataProvider typesProvider
+	 *
+	 * @param \Doctrine\DBAL\Types\Type $type
+	 */
+	public function testConvertToDatabaseValueWithObject(DoctrineType $type)
+	{
+		$platform = $this->getMockForAbstractClass(AbstractPlatform::class);
+		$this->expectException(\Doctrine\DBAL\Types\ConversionException::class);
+		$this->expectExceptionMessage('of type object');
+		$type->convertToDatabaseValue(new stdClass(), $platform);
 	}
 
 	/**
