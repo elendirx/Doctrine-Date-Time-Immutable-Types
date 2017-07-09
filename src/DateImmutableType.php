@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace VasekPurchart\Doctrine\Type\DateTimeImmutable;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class DateImmutableType extends \Doctrine\DBAL\Types\DateType
@@ -12,10 +13,7 @@ class DateImmutableType extends \Doctrine\DBAL\Types\DateType
 
 	const NAME = 'date_immutable';
 
-	/**
-	 * @return string
-	 */
-	public function getName()
+	public function getName(): string
 	{
 		return static::NAME;
 	}
@@ -42,7 +40,7 @@ class DateImmutableType extends \Doctrine\DBAL\Types\DateType
 	/**
 	 * @param \DateTimeInterface|null $value
 	 * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-	 * @return string
+	 * @return string|null
 	 */
 	public function convertToDatabaseValue($value, AbstractPlatform $platform)
 	{
@@ -61,11 +59,7 @@ class DateImmutableType extends \Doctrine\DBAL\Types\DateType
 		throw \Doctrine\DBAL\Types\ConversionException::conversionFailed($value, $this->getName());
 	}
 
-	/**
-	 * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-	 * @return boolean
-	 */
-	public function requiresSQLCommentHint(AbstractPlatform $platform)
+	public function requiresSQLCommentHint(AbstractPlatform $platform): bool
 	{
 		return true;
 	}

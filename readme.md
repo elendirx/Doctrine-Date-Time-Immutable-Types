@@ -26,10 +26,7 @@ class LogRow
 	 */
 	private $createdDate;
 
-	/**
-	 * @return \DateTime
-	 */
-	public function getCreatedDate()
+	public function getCreatedDate(): DateTime
 	{
 		return $this->createdDate;
 	}
@@ -132,10 +129,7 @@ class LogRow
 	 */
 	private $createdDate;
 
-	/**
-	 * @return \DateTimeImmutable
-	 */
-	public function getCreatedDate()
+	public function getCreatedDate(): DateTimeImmutable
 	{
 		return $this->createdDate;
 	}
@@ -149,5 +143,5 @@ class LogRow
 // created date can no longer be modified from outside
 var_dump($logRow->getCreatedDate()); // 2015-01-01 00:00:00
 $logRow->getCreatedDate()->modify('+14 days');
-var_dump($logRow->getCreatedDate()); // 2015-01-11 00:00:00
+var_dump($logRow->getCreatedDate()); // 2015-01-01 00:00:00
 ```

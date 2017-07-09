@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace VasekPurchart\Doctrine\Type\DateTimeImmutable;
 
 use DateTimeImmutable;
-use stdClass;
-
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type as DoctrineType;
+use stdClass;
 
 class DateTimeImmutableTypesTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,7 +15,7 @@ class DateTimeImmutableTypesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * @return string[][]
 	 */
-	public function typeClassesProvider()
+	public function typeClassesProvider(): array
 	{
 		return [
 			[DateImmutableType::class],
@@ -27,9 +28,9 @@ class DateTimeImmutableTypesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * @return \Doctrine\DBAL\Types\Type[][]
 	 */
-	public function typesProvider()
+	public function typesProvider(): array
 	{
-		return array_map(function ($typeClassRow) {
+		return array_map(function (array $typeClassRow): array {
 			return [DoctrineType::getType($typeClassRow[0]::NAME)];
 		}, $this->typeClassesProvider());
 	}
@@ -125,7 +126,7 @@ class DateTimeImmutableTypesTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @param string $typeClass
 	 */
-	public function testGetName($typeClass)
+	public function testGetName(string $typeClass)
 	{
 		$this->assertSame($typeClass::NAME, DoctrineType::getType($typeClass::NAME)->getName());
 	}
